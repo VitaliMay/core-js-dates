@@ -17,8 +17,8 @@
  * '01 Jan 1970 00:00:00 UTC' => 0
  * '04 Dec 1995 00:12:00 UTC' => 818035920000
  */
-function dateToTimestamp(/* date */) {
-  throw new Error('Not implemented');
+function dateToTimestamp(date) {
+  return Date.parse(date);
 }
 
 /**
@@ -31,9 +31,32 @@ function dateToTimestamp(/* date */) {
  * Date(2023, 5, 1, 8, 20, 55) => '08:20:55'
  * Date(2015, 10, 20, 23, 15, 1) => '23:15:01'
  */
-function getTime(/* date */) {
-  throw new Error('Not implemented');
+function getTime(date) {
+  return date.toString().slice(16, 24);
 }
+
+/** ************************************************* */
+// function formatTimeComponent(component) {
+//   return component.toString().padStart(2, '0');
+// }
+
+// function getTime(date) {
+//   const hours = formatTimeComponent(date.getHours());
+//   const minutes = formatTimeComponent(date.getMinutes());
+//   const seconds = formatTimeComponent(date.getSeconds());
+//   return `${hours}:${minutes}:${seconds}`;
+// }
+/** ************************************************ */
+// function getTime(date) {
+//   return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+// }
+
+// function getTime(date) {
+//   const hours = (date.getHours() < 10 ? '0' : '') + date.getHours();
+//   const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+//   const seconds = (date.getSeconds() < 10 ? '0' : '') + date.getSeconds();
+//   return `${hours}:${minutes}:${seconds}`;
+// }
 
 /**
  * Returns the name of the day of the week for a given date string.
