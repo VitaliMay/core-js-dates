@@ -303,9 +303,19 @@ function getWeekNumberByDate(date) {
  * Date(2024, 0, 13) => Date(2024, 8, 13)
  * Date(2023, 1, 1) => Date(2023, 9, 13)
  */
-function getNextFridayThe13th(/* date */) {
-  throw new Error('Not implemented');
+
+function getNextFridayThe13th(date) {
+  let tmp = getNextFriday(date);
+  while (tmp.getDate() !== 13) {
+    tmp = getNextFriday(tmp);
+  }
+  return tmp;
 }
+
+// функция выбора следующей пятницы getNextFriday выше
+// function getNextFridayThe13th(/* date */) {
+//   throw new Error('Not implemented');
+// }
 
 /**
  * Returns the quarter of the year for a given date.
