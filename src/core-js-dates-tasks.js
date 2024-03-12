@@ -266,9 +266,31 @@ function getCountWeekendsInMonth(month, year) {
  * Date(2024, 0, 31) => 5
  * Date(2024, 1, 23) => 8
  */
-function getWeekNumberByDate(/* date */) {
-  throw new Error('Not implemented');
+function getWeekNumberByDate(date) {
+  const dayEnd = new Date(date);
+
+  const dayStart = new Date(dayEnd.getFullYear(), 0, 1);
+
+  while (dayStart.getDay() !== 1) {
+    dayStart.setDate(dayStart.getDate() - 1);
+  }
+
+  while (dayEnd.getDay() !== 0) {
+    dayEnd.setDate(dayEnd.getDate() + 1);
+  }
+
+  const weekNumber = Math.ceil((dayEnd - dayStart) / (1000 * 60 * 60 * 24 * 7));
+
+  return weekNumber;
 }
+
+// Если начальная дата не понедельник - уменьшаю дату до ближайжего понедельника
+// Если конечная дата не воскресенье - увеличиваю дату до ближайшего воскресенья
+// Циклов можно избежать, но лень)
+
+// function getWeekNumberByDate(/* date */) {
+//   throw new Error('Not implemented');
+// }
 
 /**
  * Returns the date of the next Friday the 13th from a given date.
