@@ -223,10 +223,6 @@ function formatDate(date) {
 //   return new Date(date).toLocaleString('en-US', options);
 // }
 
-// function formatDate(/* date */) {
-//   throw new Error('Not implemented');
-// }
-
 /**
  * Returns the total number of weekend days (Saturdays and Sundays) in a specified month and year.
  *
@@ -239,9 +235,23 @@ function formatDate(date) {
  * 12, 2023 => 10
  * 1, 2024 => 8
  */
-function getCountWeekendsInMonth(/* month, year */) {
-  throw new Error('Not implemented');
+function getCountWeekendsInMonth(month, year) {
+  const daysMonth = new Date(year, month, 0).getDate();
+  let weekendDays = 0;
+
+  for (let i = 1; i <= daysMonth; i += 1) {
+    const currentDay = new Date(year, month - 1, i).getDay();
+
+    if (currentDay === 0 || currentDay === 6) {
+      weekendDays += 1;
+    }
+  }
+
+  return weekendDays;
 }
+// function getCountWeekendsInMonth(/* month, year */) {
+//   throw new Error('Not implemented');
+// }
 
 /**
  * Returns the week number of the year for a given date.
