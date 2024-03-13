@@ -356,9 +356,46 @@ function getQuarter(date) {
  * { start: '01-01-2024', end: '15-01-2024' }, 1, 3 => ['01-01-2024', '05-01-2024', '09-01-2024', '13-01-2024']
  * { start: '01-01-2024', end: '10-01-2024' }, 1, 1 => ['01-01-2024', '03-01-2024', '05-01-2024', '07-01-2024', '09-01-2024']
  */
-function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
-  throw new Error('Not implemented');
+function getWorkSchedule(period, countWorkDays, countOffDays) {
+  const startDate = new Date(period.start);
+  const endDatePartsArr = period.end.split('-');
+  const endDate = new Date(
+    endDatePartsArr[2],
+    endDatePartsArr[1] - 1,
+    endDatePartsArr[0]
+  );
+
+  const schedule = [];
+
+  let countWork = 0;
+
+  while (startDate <= endDate) {
+    if (countWork < countWorkDays) {
+      schedule.push(
+        startDate
+          .toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+          })
+          .split('/')
+          .join('-')
+      );
+      startDate.setDate(startDate.getDate() + 1);
+      countWork += 1;
+    } else {
+      startDate.setDate(startDate.getDate() + countOffDays);
+      countWork = 0;
+    }
+  }
+  return schedule;
 }
+
+// new Date(period.end) даёт Invalid date пришлось изголяться
+
+// function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
+//   throw new Error('Not implemented');
+// }
 
 /**
  * Determines whether the year in the provided date is a leap year.
